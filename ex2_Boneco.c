@@ -1,69 +1,55 @@
 //Desenhar um boneco palito. Desenhar a casa palito em que esse boneco palito mora;
-#include <GL/gl.h>
 #include <GL/glut.h>
-#define PI 3.1415926535
+#include <math.h>
 
-void desenho(){
-	//Cor do fundo 
-	glClearColor(1,1,1,1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+#define frc 100
+#define PI 3.1415926535897932
 
-	// projecao do plano cartesiano
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+void Desenha(){
+    //Cor do fundo Background
+    glClearColor(1,1,1,1);
+    glMatrixMode(GL_MODELVIEW);
 
-	// limitar o plano cartesiano
-	gluOrtho2D(-30, 30, -30, 30); // limitado por um quadrado de lado 5
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+    glLoadIdentity();
 
-  	glColor3f(0.0f, 0.0f, 1.0f);     
-	// Desenha a casa
-	glBegin(GL_QUADS);
-		glVertex2f(-15.0f,-15.0f);
-		glVertex2f(-15.0f,  5.0f);       
-		glVertex2f( 15.0f,  5.0f);       
-		glVertex2f( 15.0f,-15.0f);
-	glEnd();
+    // projecao do plano cartesiano
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(1.0f, 0.0f, 0.0f);
 
-	// Altera a cor do desenho para branco
-	glColor3f(1.0f, 1.0f, 1.0f);  
-	// Desenha a porta e a janela  
-	glBegin(GL_QUADS);
-		glVertex2f(-4.0f,-14.5f);
-		glVertex2f(-4.0f,  0.0f);       
-		glVertex2f( 4.0f,  0.0f);       
-		glVertex2f( 4.0f,-14.5f);       
-		glVertex2f( 7.0f,-5.0f);
-		glVertex2f( 7.0f,-1.0f);       
-		glVertex2f(13.0f,-1.0f);       
-		glVertex2f(13.0f,-5.0f);             
-	glEnd();
+    glBegin(GL_LINE_LOOP);
+        //triangulo 1
+        glColor3f(0.0f, 0.0f, 0.0f);
+        glVertex2i(200,50);
+        glVertex2i(205,50); //porta inicio
+        glVertex2i(205,85); //
+        glVertex2i(225,85); //
+        glVertex2i(225,50); //
+        glVertex2i(205,50);// porta fim
+        glVertex2i(300,50);
+        glVertex2i(300,100);
+        glVertex2i(200,100);
+        glVertex2i(225,130);
+        glVertex2i(250,100); // fim triangulo teto
+        glVertex2i(300,100);
+        glVertex2i(300,130);
+        glVertex2i(225,130);
+        glVertex2i(200,100);
+        glVertex2i(200,50);
+    glEnd();
 
-	// Altera a cor do desenho para azul
-	glColor3f(0.0f, 0.0f, 1.0f);     
-	// Desenha as "linhas" da janela  
-	glBegin(GL_LINES);      
-		glVertex2f( 7.0f,-3.0f);      
-		glVertex2f(13.0f,-3.0f);       
-		glVertex2f(10.0f,-1.0f);    
-		glVertex2f(10.0f,-5.0f);             
-	glEnd();    
-
-	// Altera a cor do desenho para vermelho
-	glColor3f(1.0f, 0.0f, 0.0f); 
-	// Desenha o telhado
-	glBegin(GL_TRIANGLES);
-		glVertex2f(-15.0f, 5.0f);   
-		glVertex2f(  0.0f,17.0f);    
-		glVertex2f( 15.0f, 5.0f);       
-	glEnd();
-
-	glColor3f(0.0f, 0.0f, 0.0f); 
- 	//cabeça do boneco
-    int x=90,y=100,r=8;
     glBegin(GL_LINE_LOOP);
         glColor3f(1.0f, 1.0f, 1.0f);
+        glVertex2i(250,65);
+        glVertex2i(270,65);
+        glVertex2i(270,85);
+        glVertex2i(250,85);
+        glVertex2i(250,65);
+    glEnd();
+
+    //cabeça do boneco
+    int x=90,y=100,r=8;
+    glBegin(GL_LINE_LOOP);
+        glColor3f(1.0f, 0.0f, 0.0f);
         for(int i=0; i < frc+1; i++)
         {
             glVertex2f(x+r*cos(2.0*PI*i/frc),y+r*sin(2.0*PI*i/frc));
@@ -71,7 +57,7 @@ void desenho(){
     glEnd();
 
     glBegin(GL_LINE_LOOP);
-        glColor3f(1.0f, 1.0f, 1.0f);
+        glColor3f(1.0f, 0.0f, 0.0f);
         glVertex2i(90,92);
         glVertex2i(90,65);
         glVertex2i(100,50);
@@ -84,23 +70,36 @@ void desenho(){
         glVertex2i(80,75);
         glVertex2i(90,92);
     glEnd();
-
- 	
-	// Executa os comandos OpenGL 
-	glFlush();
+    // Executa os comandos OpenGL 
+    glFlush();
 }
 
+void Inicializa(){
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+void Redimensiona(GLsizei w, GLsizei h){
+    if(h == 0) h = 1;
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    if(w <= h)
+        gluOrtho2D(0.0f, 250.0f, 0.0f, 250.0f*h/w);
+    else
+        gluOrtho2D(0.0f, 250.0f*w/h, 0.0f, 250.0f);
+}
 
 int main(int argc, char **argv){
-	glutInit(&argc, argv);
-	//Simple buffer
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB );
-	glutInitWindowPosition(450,100);
-	glutInitWindowSize(500,500);
-	glutCreateWindow("Casa e seu morador");
-
-	//Chamando a função desenho
-	glutDisplayFunc(desenho);
-	glutMainLoop();
-	return 0;
+    glutInit(&argc, argv);
+    //Simple buffer
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowPosition(450,100);
+    glutInitWindowSize(700,500);
+    glutCreateWindow("Boneco Palito e sua Casa");
+    //Chamando a função desenho
+    glutDisplayFunc(Desenha);
+    glutReshapeFunc(Redimensiona);
+    Inicializa();
+    glutMainLoop();
 }
+
