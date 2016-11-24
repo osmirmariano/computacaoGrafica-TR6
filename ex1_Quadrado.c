@@ -1,3 +1,5 @@
+//Criar um quadrado que possua um gradiente do vermelho para o amarelo;
+
 #include <GL/gl.h>
 #include <GL/glut.h>
 

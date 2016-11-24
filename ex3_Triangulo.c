@@ -1,7 +1,9 @@
+//Desenhar dois triângulos, um verde e outro azul;
+
 #include <GL/gl.h>
 #include <GL/glut.h>
 
-//Drawing funciton
+//Função para realizar o desenho dos triângulos
 void desenho(){
   	//Background color
   	glClearColor(1,1,1,1);
@@ -34,7 +36,7 @@ int main(int argc, char **argv){
   	//Simple buffer
   	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB );
   	glutInitWindowPosition(450,100);
-	glutInitWindowSize(350,350); //Limitando o qadrado, sendo de tamho 500 x 500
+	glutInitWindowSize(350,350); //Limitando o qadrado, sendo de tamho 350 x 350
   	glutCreateWindow("Triângulos");
 
   	//Chamado a função desenhar
