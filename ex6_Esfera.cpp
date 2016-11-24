@@ -44,10 +44,8 @@ void Observador(){
 
 void Desenha(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     glColor3f(1.0f, 0.0f, 0.0f);
     glutSolidSphere(50.0f,50,50);
-
     glutSwapBuffers();
 }
 
@@ -83,12 +81,14 @@ void Redimensiona(GLsizei w, GLsizei h){
 void ControleMouse(int botao, int estado, int x, int y){
     if(botao == GLUT_LEFT_BUTTON){
          if(estado == GLUT_DOWN){
-             if(angulo >= 10) angulo -=5;
+             if(angulo >= 10) 
+                angulo -=5;
          }
     }
     if(botao == GLUT_RIGHT_BUTTON){
          if(estado == GLUT_DOWN){
-             if(angulo <= 130) angulo +=5;
+             if(angulo <= 130) 
+                angulo +=5;
          }
     }
     EspecificacaoParametrosVisualizacao();

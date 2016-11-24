@@ -49,20 +49,14 @@ class Camera {
 		// Prepara a câmera.
 		void setup(int window_width, int window_height) {
 			glViewport(0,0,window_width,window_height);
-
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
-
-			// fovy, aspect, near, far.
 			gluPerspective(60, 1, 85, 400);
-
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-
 			gluLookAt(0, 200, 200,   // posição
 					  0, 0, 0,       // olhando para...
 					  0, 1, 0);      // up vector.
-
 			//Limpa o buffer de cor e o Depth Buffer.
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}

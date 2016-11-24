@@ -35,9 +35,7 @@ void Iluminacao(){
 void Observador(){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
     Iluminacao();
-
     glTranslatef(0,0,-ObsZ);
     glRotatef(Rx,1,0,0);
     glRotatef(Ry,0,1,0);
@@ -151,7 +149,6 @@ void ControleTeclado(int tecla, int x, int y){
         EspecificacaoParametrosVisualizacao();
         break;
   }
-
   Observador();
   glutPostRedisplay();
 }
